@@ -1,0 +1,315 @@
+{
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "closed": 9,
+    "ticketed": 7,
+    "mandatory_ok": 12,
+    "guard_trips": 0,
+    "latency_source": "mock_simulated",
+    "latency_scale": 0.0
+  },
+  "latency": {
+    "turns": 76,
+    "first_response": {
+      "name": "first_response",
+      "n": 76,
+      "p50": 4.6,
+      "p95": 9.9,
+      "mean": 5.5,
+      "min": 2.3,
+      "max": 9.9,
+      "unit": "ms"
+    },
+    "endpointing": {
+      "name": "endpointing",
+      "n": 64,
+      "p50": 280.0,
+      "p95": 280.0,
+      "mean": 280.0,
+      "min": 280.0,
+      "max": 280.0,
+      "unit": "ms"
+    },
+    "asr": {
+      "name": "asr",
+      "n": 76,
+      "p50": 0.0,
+      "p95": 0.1,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.1,
+      "unit": "ms"
+    },
+    "llm_ttft": {
+      "name": "llm_ttft",
+      "n": 76,
+      "p50": 0.0,
+      "p95": 0.1,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.1,
+      "unit": "ms"
+    },
+    "tts_ttfb": {
+      "name": "tts_ttfb",
+      "n": 76,
+      "p50": 4.5,
+      "p95": 9.7,
+      "mean": 5.4,
+      "min": 2.2,
+      "max": 9.8,
+      "unit": "ms"
+    }
+  },
+  "cases": [
+    {
+      "id": "c01",
+      "desc": "顺利接受，走完全流程",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 7,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true,
+        "ticket": true,
+        "need": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c02",
+      "desc": "开场即拒绝",
+      "closed": false,
+      "final_state": "NEED",
+      "turns": 2,
+      "slots": {
+        "identity_confirmed": true
+      },
+      "ticket": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "ticket": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c03",
+      "desc": "用户要求转人工",
+      "closed": true,
+      "final_state": "HANDOFF",
+      "turns": 3,
+      "slots": {
+        "identity_confirmed": null
+      },
+      "ticket": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "final_state": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c04",
+      "desc": "含糊应答，需要重问",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 8,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c05",
+      "desc": "中途改口需求",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 7,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c06",
+      "desc": "用户提出疑问",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 8,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c07",
+      "desc": "用户质疑是诈骗",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 8,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c08",
+      "desc": "用户要求稍后联系",
+      "closed": false,
+      "final_state": "CONFIRM",
+      "turns": 5,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "callback",
+        "offer_accepted": true
+      },
+      "ticket": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "need": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c09",
+      "desc": "短促应答连打",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 6,
+      "slots": {
+        "identity_confirmed": true,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c10",
+      "desc": "用户主动报手机号",
+      "closed": true,
+      "final_state": "CLOSED",
+      "turns": 7,
+      "slots": {
+        "identity_confirmed": true,
+        "phone": "13800001111",
+        "customer_name": "王",
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": true
+      },
+      "ticket": "T000001",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 0,
+      "checks": {
+        "closed": true,
+        "phone": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c11",
+      "desc": "用户始终不明确，不能卡死",
+      "closed": false,
+      "final_state": "CONFIRM",
+      "turns": 10,
+      "slots": {
+        "identity_confirmed": null,
+        "need": "interested",
+        "offer_accepted": true,
+        "final_confirmation": null
+      },
+      "ticket": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 1,
+      "checks": {
+        "not_stuck": true,
+        "turns_ok": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c12",
+      "desc": "用户持续异议后转人工",
+      "closed": true,
+      "final_state": "HANDOFF",
+      "turns": 5,
+      "slots": {
+        "identity_confirmed": null
+      },
+      "ticket": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "fallback_turns": 1,
+      "checks": {
+        "final_state": true
+      },
+      "ok": true
+    }
+  ]
+}

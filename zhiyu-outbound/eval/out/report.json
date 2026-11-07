@@ -1,0 +1,377 @@
+{
+  "summary": {
+    "total": 14,
+    "passed": 14,
+    "called": 11,
+    "skipped": 3,
+    "closed": 8,
+    "ticketed": 6,
+    "mandatory_ok": 11,
+    "mandatory_total": 11,
+    "guard_trips": 0,
+    "latency_source": "mock_simulated",
+    "latency_scale": 0.0
+  },
+  "latency": {
+    "turns": 39,
+    "first_response": {
+      "name": "first_response",
+      "n": 39,
+      "p50": 5.9,
+      "p95": 10.6,
+      "mean": 5.6,
+      "min": 2.5,
+      "max": 10.7,
+      "unit": "ms"
+    },
+    "endpointing": {
+      "name": "endpointing",
+      "n": 28,
+      "p50": 280.0,
+      "p95": 280.0,
+      "mean": 280.0,
+      "min": 280.0,
+      "max": 280.0,
+      "unit": "ms"
+    },
+    "asr": {
+      "name": "asr",
+      "n": 39,
+      "p50": 0.1,
+      "p95": 0.1,
+      "mean": 0.1,
+      "min": 0.0,
+      "max": 0.1,
+      "unit": "ms"
+    },
+    "llm_ttft": {
+      "name": "llm_ttft",
+      "n": 39,
+      "p50": 0.0,
+      "p95": 0.1,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.1,
+      "unit": "ms"
+    },
+    "tts_ttfb": {
+      "name": "tts_ttfb",
+      "n": 39,
+      "p50": 5.6,
+      "p95": 10.4,
+      "mean": 5.3,
+      "min": 2.3,
+      "max": 10.5,
+      "unit": "ms"
+    }
+  },
+  "cases": [
+    {
+      "id": "c01",
+      "desc": "电话场景：正常外呼闭环并回写",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 4,
+      "ticket": "T000001",
+      "call_result": "notified",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "closed": true,
+        "call_result": true,
+        "ticket": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c02",
+      "desc": "京麦驳回场景：不外呼",
+      "scenario": "S003",
+      "called": false,
+      "closed": false,
+      "final_state": "NOT_CALLED",
+      "method": "京麦驳回",
+      "action": "京麦驳回",
+      "reason_code": "jingmai_scene",
+      "turns": 0,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [
+        "identity_declaration",
+        "merchant_verification"
+      ],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "method": true,
+        "action": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c03",
+      "desc": "打错人：立即挂断且不讲驳回原因",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 2,
+      "ticket": "T000001",
+      "call_result": "wrong_number",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "closed": true,
+        "call_result": true,
+        "no_reason": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c04",
+      "desc": "身份含糊：重问用尽也不能讲驳回原因",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 4,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "no_reason": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c05",
+      "desc": "商家质疑：回怼后仍走完流程",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 6,
+      "ticket": "T000001",
+      "call_result": "notified",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "closed": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c06",
+      "desc": "威胁曝光：转升级处理",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "ESCALATE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 3,
+      "ticket": "T000001",
+      "call_result": "escalated",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "final_state": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c07",
+      "desc": "商家要求回电：京麦场景也必须打",
+      "scenario": "S003",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "merchant_requested",
+      "turns": 4,
+      "ticket": "T000001",
+      "call_result": "notified",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "method": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c08",
+      "desc": "三次提交仍错：一律京麦驳回",
+      "scenario": "S001",
+      "called": false,
+      "closed": false,
+      "final_state": "NOT_CALLED",
+      "method": "京麦驳回",
+      "action": "京麦驳回",
+      "reason_code": "third_or_more",
+      "turns": 0,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [
+        "identity_declaration",
+        "merchant_verification"
+      ],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "action": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c09",
+      "desc": "电话场景首次未接通：京麦驳回",
+      "scenario": "S001",
+      "called": false,
+      "closed": false,
+      "final_state": "NOT_CALLED",
+      "method": "京麦驳回",
+      "action": "京麦驳回",
+      "reason_code": "first_unreached",
+      "turns": 0,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [
+        "identity_declaration",
+        "merchant_verification"
+      ],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "action": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c10",
+      "desc": "二次提交仍错且未接通：预约二次外呼",
+      "scenario": "S001",
+      "called": true,
+      "closed": false,
+      "final_state": "VERIFY_MERCHANT",
+      "method": "电话",
+      "action": "创事件+预约二次外呼",
+      "reason_code": "second_attempt_schedule",
+      "turns": 1,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "action": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c11",
+      "desc": "越级投诉风控：即使京麦场景也必须回电",
+      "scenario": "S003",
+      "called": true,
+      "closed": true,
+      "final_state": "CLOSE",
+      "method": "电话",
+      "action": "外呼+升级处理",
+      "reason_code": "escalation_risk",
+      "turns": 4,
+      "ticket": "T000001",
+      "call_result": "escalated",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "method": true,
+        "call_result": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c12",
+      "desc": "转人工",
+      "scenario": "S001",
+      "called": true,
+      "closed": true,
+      "final_state": "HANDOFF",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 3,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true,
+        "final_state": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c13",
+      "desc": "行业资质场景：资质已过期",
+      "scenario": "S061",
+      "called": true,
+      "closed": false,
+      "final_state": "RECTIFY",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 4,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true
+      },
+      "ok": true
+    },
+    {
+      "id": "c14",
+      "desc": "公司资质场景：法人证件类型错",
+      "scenario": "S064",
+      "called": true,
+      "closed": false,
+      "final_state": "RECTIFY",
+      "method": "电话",
+      "action": "外呼",
+      "reason_code": "phone_scene",
+      "turns": 4,
+      "ticket": "",
+      "call_result": "",
+      "mandatory_missing": [],
+      "guard_trips": 0,
+      "checks": {
+        "called": true
+      },
+      "ok": true
+    }
+  ]
+}

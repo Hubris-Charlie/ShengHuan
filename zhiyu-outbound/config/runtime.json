@@ -1,0 +1,42 @@
+{
+  "_note": "运行期参数。simulate=true 时使用 Mock provider 并按这里的分布注入模拟时延，用于在没有云密钥时验证整条管线与埋点。接真实服务时把 simulate 设为 false。",
+  "simulate": true,
+  "latency_ms": {
+    "endpointing": [220, 320],
+    "asr_final": [80, 180],
+    "llm_ttft": [260, 520],
+    "tokens_per_sec": 55,
+    "tts_ttfb": [140, 260],
+    "tts_char_ms": 165,
+    "network_rtt": [40, 90]
+  },
+  "limits": {
+    "max_turns": 12,
+    "endpoint_silence_ms": 280
+  },
+  "providers": {
+    "llm": {
+      "kind": "mock",
+      "base_url": "https://api.deepseek.com/v1",
+      "model": "",
+      "api_key_env": "LLM_API_KEY"
+    },
+    "asr": {
+      "_note": "kind=script → 演示台词（无密钥时验证链路）；kind=http → OpenAI 兼容的 /audio/transcriptions，做真实识别",
+      "kind": "script",
+      "base_url": "https://api.siliconflow.cn/v1",
+      "model": "FunAudioLLM/SenseVoiceSmall",
+      "language": "zh",
+      "api_key_env": "ASR_API_KEY",
+      "hotwords_env": "ASR_HOTWORDS",
+      "hotwords": []
+    },
+    "tts": {
+      "kind": "mock",
+      "vendor": "aliyun_dashscope",
+      "api_key_env": "TTS_API_KEY",
+      "voice": "longxiaochun",
+      "model": "cosyvoice-v1"
+    }
+  }
+}

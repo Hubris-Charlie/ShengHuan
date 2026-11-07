@@ -1,0 +1,3 @@
+# 核心逻辑零依赖（纯标准库），以下仅音频通路与真实 LLM 需要
+websockets>=15.0     # 浏览器实时音频通路；不装只能跑 test_core.py
+httpx>=0.27          # 接真实 LLM（OpenAI 兼容 /v1/chat/completions 流式）

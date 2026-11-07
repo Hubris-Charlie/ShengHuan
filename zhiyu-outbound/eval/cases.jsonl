@@ -1,0 +1,14 @@
+{"id":"c01","desc":"电话场景：正常外呼闭环并回写","scenario":"S001","lines":["对，是我们","我听明白了","好的谢谢"],"expect":{"called":true,"closed":true,"call_result":"notified","ticket":true}}
+{"id":"c02","desc":"京麦驳回场景：不外呼","scenario":"S003","lines":[],"expect":{"called":false,"method":"京麦驳回","action":"京麦驳回"}}
+{"id":"c03","desc":"打错人：立即挂断且不讲驳回原因","scenario":"S001","lines":["你打错了，不是我们公司"],"expect":{"called":true,"closed":true,"call_result":"wrong_number","no_reason":"true"}}
+{"id":"c04","desc":"身份含糊：重问用尽也不能讲驳回原因","scenario":"S001","lines":["喂？","呃","啊","嗯……"],"expect":{"called":true,"no_reason":"true"}}
+{"id":"c05","desc":"商家质疑：回怼后仍走完流程","scenario":"S001","lines":["是这里","我这明明是真的授权，怎么会不属实","我听明白了","好的谢谢","明白"],"expect":{"called":true,"closed":true}}
+{"id":"c06","desc":"威胁曝光：转升级处理","scenario":"S001","lines":["是这里","我要去微博曝光你们"],"expect":{"called":true,"final_state":"ESCALATE"}}
+{"id":"c07","desc":"商家要求回电：京麦场景也必须打","scenario":"S003","ctx":{"merchant_requested_callback":true},"lines":["是这里","我听明白了","好的谢谢"],"expect":{"called":true,"method":"电话"}}
+{"id":"c08","desc":"三次提交仍错：一律京麦驳回","scenario":"S001","ctx":{"attempt_count":3},"lines":[],"expect":{"called":false,"action":"京麦驳回"}}
+{"id":"c09","desc":"电话场景首次未接通：京麦驳回","scenario":"S001","ctx":{"attempt_count":1,"already_called_unreached":true},"lines":[],"expect":{"called":false,"action":"京麦驳回"}}
+{"id":"c10","desc":"二次提交仍错且未接通：预约二次外呼","scenario":"S001","ctx":{"attempt_count":2,"already_called_unreached":true},"lines":[],"expect":{"called":true,"action":"创事件+预约二次外呼"}}
+{"id":"c11","desc":"越级投诉风控：即使京麦场景也必须回电","scenario":"S003","ctx":{"escalation_risk":true},"lines":["是这里","我听明白了","好的"],"expect":{"called":true,"method":"电话","call_result":"escalated"}}
+{"id":"c12","desc":"转人工","scenario":"S001","lines":["是这里","我要转人工"],"expect":{"called":true,"final_state":"HANDOFF"}}
+{"id":"c13","desc":"行业资质场景：资质已过期","scenario":"S061","lines":["是的","明白","好"],"expect":{"called":true}}
+{"id":"c14","desc":"公司资质场景：法人证件类型错","scenario":"S064","lines":["是我","知道了","谢谢"],"expect":{"called":true}}
